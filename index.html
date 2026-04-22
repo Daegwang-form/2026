@@ -574,7 +574,7 @@
     programs[val].forEach((p, i) => {
       container.innerHTML += `
         <label class="program-option">
-          <input type="radio" name="program" value="${p.date}">
+          <input type="radio" name="program" value="${p.date} ${p.title}">
           <span class="program-btn">
             <div class="program-date">${p.date}</div>
             <div class="program-title">${p.title}</div>
