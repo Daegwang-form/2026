@@ -644,11 +644,13 @@
       program: program.value,
     };
 
-    fetch('https://script.google.com/macros/s/AKfycbximPJ-spL00s_ipcmsXPq5V_L0GdJQqQniA45msCRuAlfjppw0AGYBbfvI2TVoxKyH/exec', {
+    const formData = new FormData();
+    Object.keys(payload).forEach(k => formData.append(k, payload[k]));
+
+    fetch('https://script.google.com/macros/s/AKfycbzBG_0CjFPUlAHF-eyoTbL3-Zb9Gt0F_bTsRb2B3nj28dc50Yxec7exzYv9QEbyVvZG/exec', {
       method: 'POST',
       mode: 'no-cors',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload)
+      body: formData
     }).then(() => {
       document.getElementById('formBody').style.display = 'none';
       document.getElementById('successOverlay').style.display = 'flex';
