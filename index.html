@@ -630,10 +630,34 @@
     if (!course) { alert('희망 과정을 선택해 주세요.'); return; }
     if (!program) { alert('참여할 프로그램 일자를 선택해 주세요.'); return; }
 
-    document.getElementById('formBody').style.display = 'none';
-    const overlay = document.getElementById('successOverlay');
-    overlay.style.display = 'flex';
-    document.getElementById('footerTxt').style.display = 'none';
+    const btn = document.querySelector('.submit-btn');
+    btn.textContent = '제출 중...';
+    btn.disabled = true;
+
+    const payload = {
+      name,
+      gender: gender.value,
+      contact,
+      school,
+      studentId,
+      course: document.getElementById('course').options[document.getElementById('course').selectedIndex].text,
+      program: program.value,
+    };
+
+    fetch('https://script.google.com/macros/s/AKfycbyiiXIWZP-WKwdsF_VWTPuw3akAItKUdiR_67UngxCsOZkjIbOeM8vbIuoDzGzOt3c/exec', {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    }).then(() => {
+      document.getElementById('formBody').style.display = 'none';
+      document.getElementById('successOverlay').style.display = 'flex';
+      document.getElementById('footerTxt').style.display = 'none';
+    }).catch(() => {
+      btn.textContent = '신청하기 →';
+      btn.disabled = false;
+      alert('제출 중 오류가 발생했습니다. 다시 시도해 주세요.');
+    });
   }
 </script>
 </body>
